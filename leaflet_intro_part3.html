@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Quick Start - Leaflet</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+
+<style>
+		.leaflet-popup-content-wrapper {
+			border-radius: 3;
+			font-size: 20px;
+			background: yellow;
+			box-shadow: 0 3px 14px rgba(8, 197, 240, 0.76);
+		}
+
+		.leaflet-popup-content {
+			margin: 5px;
+		}
+
+		.leaflet-popup-tip {
+		   background: yellow;
+		   color: #333;
+		   box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+		}
+
+		.leaflet-popup-tip {
+			background: yellow;
+			color: #333;
+			box-shadow: 0 3px 14px rgba(8, 197, 240, 0.76);
+		}
+
+		.leaflet-container a.leaflet-popup-close-button {
+			display: none;
+		}
+
+
+</style>
+
+</head>
+<body>
+
+
+
+<div id="mapid" style="width: 800px; height: 900px;"></div>
+<script>
+
+	var mymap = L.map('mapid').setView([48.855679899769, 2.3414611816406246], 11);
+
+	L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png', {
+		attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+		tileSize: 512,
+		zoomOffset: -1
+	}).addTo(mymap);
+
+	var popup = L.popup()
+
+	var treeIcon = L.icon({
+	    iconUrl: 'tree.png',
+	    iconSize:     [32, 37], // size of the icon
+	    iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
+	    popupAnchor:  [0, -37] // point from which the popup should open relative to the iconAnchor
+	});
+
+	var pinIcon = L.icon({
+			iconUrl: 'maps-and-flags.svg',
+			iconSize:     [32, 37], // size of the icon
+			iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
+			popupAnchor:  [0, -37] // point from which the popup should open relative to the iconAnchor
+	});
+
+var geojson = {"type": "FeatureCollection","features": [{"type": "Feature","properties": {},"geometry": {"type": "Polygon","coordinates": [[[2.3684120178222656,48.88153784508654],[2.3280715942382812,48.886617529842795],[2.2995758056640625,48.87690923865779],[2.289447784423828,48.861665678191514],[2.3129653930664062,48.83229462454662],[2.3466110229492188,48.830147602851454],[2.370128631591797,48.83432856023283],[2.391071319580078,48.84189859515306],[2.396221160888672,48.853082075093546],[2.381458282470703,48.866521538507754],[2.3684120178222656,48.88153784508654]]]}},{"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [2.349700927734375,48.85302559914698]}},{"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [2.3491859436035156,48.87713503427443]}},{"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [2.375192642211914,48.83783125590928]}},{"type": "Feature","properties": {},"geometry": {"type": "LineString","coordinates": [[2.3686695098876953,48.87075591579973],[2.3692703247070312,48.86951386893293],[2.366609573364258,48.868441167281176],[2.3629188537597656,48.86725552291077],[2.3555374145507812,48.86787657822752],[2.3509883880615234,48.868949291982865],[2.3419761657714844,48.865956927794876],[2.340002059936523,48.86358549323598],[2.333393096923828,48.864545373142235]]}}]}
+
+L.geoJSON(geojson, {
+		style : function(feature)
+			{return {
+				color: '#000',
+				weight: 0.5
+			}
+		},
+	pointToLayer: function(geoJsonPoint, latlng) {
+    return L.marker(latlng, {
+			icon: pinIcon
+			});
+		},
+	onEachFeature: function(feature, layer) {
+		if(feature. geometry. type==='Point'){
+			layer.bindPopup(feature.geometry.type)
+				}
+			}
+}).addTo(mymap);
+
+	mymap.on('click', onMapClick);
+
+</script>
+
+
+
+</body>
+</html>
