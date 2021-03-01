@@ -20,7 +20,7 @@
 			box-shadow: 0 3px 14px rgba(8, 197, 240, 0.76);
 		}
 
-		.leaflet-popup-content {;
+		.leaflet-popup-content {
 			margin: 5px;
 		}
 
@@ -73,7 +73,14 @@
 			popupAnchor:  [0, -37] // point from which the popup should open relative to the iconAnchor
 	});
 
-L.marker([48.955679899769, 2.3414611816406246], {icon:pinIcon}).addTo(mymap).bindPopup('Salut! <img src="https://via.placeholder.com/150x50" /> ');
+	var popup = L.popup({
+			maxWidth : 400
+					}).setLatLng([48.955679899769, 2.3414611816406246])
+			  .setContent('Salut ! <br> <img src="https://via.placeholder.com/150x50"/>')
+			  .openOn(mymap);
+
+L.marker([48.955679899769, 2.3414611816406246],{icon:pinIcon}).addTo(mymap).bindPopup(popup);
+
 L.marker([48.855679899769, 2.3414611816406246],{icon:treeIcon}).addTo(mymap).bindPopup('Bonjour!');
 
 	mymap.on('click', onMapClick);
